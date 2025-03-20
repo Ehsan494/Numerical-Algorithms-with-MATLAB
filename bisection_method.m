@@ -42,8 +42,8 @@ function [root, error, iter] = bisection_method(f, a, b, tol, N_max)
         error = abs(b - a) / 2;
         iter = iter + 1;
     end
-
-
+    
+    root=c;
     % If max iterations reached, issue a warning
     if iter >= N_max
         warning('Maximum number of iterations reached. Solution may not be accurate.');

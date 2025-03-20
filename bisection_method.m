@@ -43,8 +43,6 @@ function [root, error, iter] = bisection_method(f, a, b, tol, N_max)
         iter = iter + 1;
     end
 
-    % Final root approximation
-    root = c;
 
     % If max iterations reached, issue a warning
     if iter >= N_max

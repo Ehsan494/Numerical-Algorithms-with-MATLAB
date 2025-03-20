@@ -9,19 +9,17 @@ function [root, error] = bisection_method(f, a, b, tol, N)
     
     while error >= tol 
         c = (a + b) / 2; % Compute midpoint
-        fc = f(c);
+        sfc = sign(f(c)); sfa=sign(f(a));
         
         % Update the interval
-        if f(a) * fc < 0
-            b = c;
-        else if f(b)*fc < 0
-            a = c;
+        if sfa*sfc < 0
+            b = c; error = abs(b - a)/2;
+        else if sfa*sfc > 0
+            a = c; error = abs(b - a)/2;
         else
            root=c; error=0;
-           break; 
         end
         
-        error = abs(b - a)/2;
        N=N+1; 
     end
     

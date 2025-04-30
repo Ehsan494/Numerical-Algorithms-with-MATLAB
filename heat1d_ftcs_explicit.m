@@ -1,5 +1,5 @@
-% heat1d_ftcs_unrestricted_explicit
-% Explicit Explicit Forward Euler–Time / Centered–Space (FTCS) solver for 1-D heat equation u_t = alpha * u_xx
+% heat1d_ftcs_unrestricted.m -------------------------------------------
+% Explicit FTCS solver for 1-D heat equation u_t = alpha * u_xx
 % with user-selected dt.  Change dt to watch how the solution behaves
 % as lambda = alpha*dt/dx^2 crosses the 0.5 stability threshold.
 % ----------------------------------------------------------------------
@@ -15,22 +15,25 @@ N      = 80;            % spatial sub-intervals  (N+1 nodes)
 dx     = L / N;
 
 % --- CHOOSE ANY dt YOU WANT HERE --------------------------------------
-% dt     = 0.8 * dx^2 / alpha;   % EXAMPLE: lambda = 0.8 (> 0.5) → unstable
-% dt   = 0.4 * dx^2 / alpha;   % EXAMPLE: lambda = 0.4 (< 0.5) → stable
-% dt   = 5.0;                  % another way: huge dt (lambda ≫ 0.5)
+ dt     = 0.8 * dx^2 / alpha;   % EXAMPLE: lambda = 0.8 (> 0.5) → unstable
+%dt   = 0.4 * dx^2 / alpha;   % EXAMPLE: lambda = 0.4 (< 0.5) → stable
+ %dt   = 5;                  % another way: huge dt (lambda ≫ 0.5)
 % ----------------------------------------------------------------------
 
 Nt     = ceil(Tend / dt);      % number of whole steps
-%dt     = Tend / Nt;            % tweak dt so Nt*dt = Tend exactly
+dt     = Tend / Nt;            % tweak dt so Nt*dt = Tend exactly
 lambda = alpha * dt / dx^2;
 fprintf('\nFTCS run:  N = %d   dt = %.5g   Nt = %d   lambda = %.3f\n',...
         N, dt, Nt, lambda);
 
 %% 3. Initial & boundary conditions
 x   = linspace(0, L, N+1);
-%u   = sin(pi*x/L);             % initial profile  (smooth, hides instability as dt grows so don't use it, when you want to observe instability as dt grows)
+%u   = sin(pi*x/L);             % initial profile  (smooth; hides instability as dt grows)
 % For a worst-case instability test you could try:
-u = (-1).^(0:N);             % checkerboard (+1,-1,+1,-1,...)
+%u = (-1).^(0:N);             % checkerboard (+1,-1,+1,-1,...)
+% Reasonable initial u
+u = sin(pi*x/L) + 0.25*sin(6*pi*x/L);
+
 
 g0  = @(t) 0;                  % Dirichlet BC at x=0
 gL  = @(t) 0;                  % Dirichlet BC at x=L

@@ -8,7 +8,7 @@ clear; clc;
 %% 1. Physical parameters (edit as you like)
 L      = 1.0;           % rod length
 alpha  = 1e-4;          % thermal diffusivity
-Tend   = 5.0;           % simulation end time (seconds)
+Tend   = 500;           % simulation end time (seconds)
 
 %% 2. Grid
 N      = 80;            % spatial sub-intervals  (N+1 nodes)

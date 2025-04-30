@@ -1,4 +1,4 @@
-% heat1d_ftcs_unrestricted.m -------------------------------------------
+
 % Explicit FTCS solver for 1-D heat equation u_t = alpha * u_xx
 % with user-selected dt.  Change dt to watch how the solution behaves
 % as lambda = alpha*dt/dx^2 crosses the 0.5 stability threshold.
@@ -21,14 +21,16 @@ dx     = L / N;
 % ----------------------------------------------------------------------
 
 Nt     = ceil(Tend / dt);      % number of whole steps
-dt     = Tend / Nt;            % tweak dt so Nt*dt = Tend exactly
+%dt     = Tend / Nt;            % tweak dt so Nt*dt = Tend exactly;
+%re-modulate dt so lambda is stable, don't use if you want to observe
+%instability as dt grows
 lambda = alpha * dt / dx^2;
 fprintf('\nFTCS run:  N = %d   dt = %.5g   Nt = %d   lambda = %.3f\n',...
         N, dt, Nt, lambda);
 
 %% 3. Initial & boundary conditions
 x   = linspace(0, L, N+1);
-%u   = sin(pi*x/L);             % initial profile  (smooth; hides instability as dt grows)
+%u   = sin(pi*x/L);             % initial profile  (smooth)
 % For a worst-case instability test you could try:
 %u = (-1).^(0:N);             % checkerboard (+1,-1,+1,-1,...)
 % Reasonable initial u

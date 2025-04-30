@@ -1,4 +1,4 @@
-% Implicit Backward-Euler
+% implicit Backward-Euler
 clear; clc;
 
 % Problem parameters
